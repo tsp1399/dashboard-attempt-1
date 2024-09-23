@@ -136,3 +136,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 SERPAPI_KEY = os.getenv('SERPAPI_KEY')
+
+# DataForSEO API credentials
+DATAFORSEO_LOGIN = 'thomas@tmsfinancial.com.au'
+DATAFORSEO_PASSWORD = 'fb9aa94ace8f92b5'
