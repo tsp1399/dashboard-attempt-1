@@ -21,9 +21,9 @@ from django.shortcuts import redirect
 from scheduler.views import user_dashboard
 
 urlpatterns = [
-    path('', lambda request: redirect('user_dashboard'), name='home'),
     path('admin/', admin.site.urls),
+    path('', include('scheduler.urls')),
+    path('analytics/', include('analytics.urls')),
     path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
     path('accounts/logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
-    path('dashboard/', user_dashboard, name='user_dashboard'),
 ]
