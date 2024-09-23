@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Analytics for "{{ schedule.primary_keyword }}"</h1>
+
+<h2>Keyword Details</h2>
+<p>Primary Keyword: {{ schedule.primary_keyword }}</p>
+<p>Traffic Volume: {{ schedule.traffic_volume }}</p>
+<p>Keyword Difficulty: {{ schedule.keyword_difficulty }}</p>
+<p>Article Status: {{ schedule.get_article_status_display }}</p>
+
+<h2>Performance Metrics</h2>
+<p>This section will contain charts and data about the keyword's performance.</p>
+
+<!-- Add more sections and placeholders for future analytics features -->
+
+<a href="{% url 'user_dashboard' %}">Back to Dashboard</a>
+{% endblock %}

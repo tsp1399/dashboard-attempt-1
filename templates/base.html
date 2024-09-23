@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Schedule Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <nav>
+        <a href="{% url 'user_dashboard' %}">Dashboard</a>
+        {% if user.is_authenticated %}
+            {% if user.is_staff %}
+                <a href="{% url 'admin:index' %}">Admin Panel</a>
+            {% endif %}
+            <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'admin:login' %}">Admin Login</a>
+        {% endif %}
+    </nav>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <p style="color: red;">CONTENT STARTS HERE</p>
+    {% block content %}
+    {% endblock %}
+    <p style="color: red;">CONTENT ENDS HERE</p>
+    <script src="{% static 'js/dashboard.js' %}"></script>
+</body>
+</html>
