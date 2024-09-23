@@ -10,9 +10,32 @@
 <p>Article Status: {{ schedule.get_article_status_display }}</p>
 
 <h2>Performance Metrics</h2>
-<p>This section will contain charts and data about the keyword's performance.</p>
+{% if search_volume_data %}
+    <h3>Search Volume Data</h3>
+    <p>Search Volume: {{ search_volume_data.search_volume }}</p>
+    <p>CPC: ${{ search_volume_data.cpc }}</p>
+    <p>Competition: {{ search_volume_data.competition }}</p>
+    <h4>Monthly Searches</h4>
+    <ul>
+    {% for month, volume in search_volume_data.monthly_searches.items %}
+        <li>{{ month }}: {{ volume }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No search volume data available.</p>
+{% endif %}
 
-<!-- Add more sections and placeholders for future analytics features -->
+<h2>Search Results</h2>
+<div id="serpapi-results">
+    {% for result in search_results %}
+        <div>
+            <h3><a href="{{ result.link }}" target="_blank">{{ result.title }}</a></h3>
+            <p>{{ result.snippet }}</p>
+        </div>
+    {% empty %}
+        <p>No results found.</p>
+    {% endfor %}
+</div>
 
 <a href="{% url 'user_dashboard' %}">Back to Dashboard</a>
 {% endblock %}
