@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load custom_filters %}
+
 {% block content %}
 <p style="color: blue;">USER DASHBOARD CONTENT STARTS HERE</p>
 <h1>Content Schedule Dashboard</h1>
@@ -16,18 +18,18 @@
 <form method="post">
     {% csrf_token %}
     <div class="form-group">
-        <label for="primary_keyword">Primary keyword:</label>
-        <input type="text" id="primary_keyword" name="primary_keyword" required>
+        <label for="{{ form.primary_keyword.id_for_label }}">Primary keyword:</label>
+        {{ form.primary_keyword }}
     </div>
     <div class="form-group">
-        <label for="traffic_volume">Traffic volume:</label>
-        <input type="number" id="traffic_volume" name="traffic_volume" required>
+        <label for="{{ form.traffic_volume.id_for_label }}">Traffic volume:</label>
+        {{ form.traffic_volume }}
     </div>
     <div class="form-group">
-        <label for="keyword_difficulty">Keyword difficulty:</label>
-        <input type="number" id="keyword_difficulty" name="keyword_difficulty" required>
+        <label for="{{ form.keyword_difficulty.id_for_label }}">Keyword difficulty:</label>
+        {{ form.keyword_difficulty }}
     </div>
-    <button type="submit" name="action" value="add">Add Content Schedule</button>
+    <button type="submit">Add Content Schedule</button>
 </form>
 
 <h2>Existing Content Schedules</h2>
@@ -44,16 +46,27 @@
     <tbody>
         {% for schedule in schedules %}
         <tr>
-            <td>{{ schedule.primary_keyword }}</td>
-            <td>{{ schedule.traffic_volume }}</td>
-            <td>{{ schedule.keyword_difficulty }}</td>
-            <td>{{ schedule.get_article_status_display }}</td>
-            <td>
-                <form method="post" onsubmit="return confirm('Are you sure you want to delete this schedule?');">
-                    {% csrf_token %}
-                    <button type="submit" name="delete" value="{{ schedule.id }}">Delete</button>
-                </form>
-            </td>
+            <form method="post" action="{% url 'user_dashboard' %}">
+                {% csrf_token %}
+                <td>
+                    <span class="editable-text">{{ schedule.primary_keyword }}</span>
+                    <input type="text" name="primary_keyword" value="{{ schedule.primary_keyword }}" required class="edit-input" style="display: none;">
+                </td>
+                <td>
+                    <span class="editable-text">{{ schedule.traffic_volume }}</span>
+                    <input type="number" name="traffic_volume" value="{{ schedule.traffic_volume }}" required class="edit-input" style="display: none;">
+                </td>
+                <td>
+                    <span class="editable-text">{{ schedule.keyword_difficulty }}</span>
+                    <input type="number" name="keyword_difficulty" value="{{ schedule.keyword_difficulty }}" required class="edit-input" style="display: none;">
+                </td>
+                <td>{{ schedule.get_article_status_display }}</td>
+                <td>
+                    <button type="button" class="edit-btn">Edit</button>
+                    <button type="submit" name="update" value="{{ schedule.id }}" class="update-btn" style="display: none;">Update</button>
+                    <button type="submit" name="delete" value="{{ schedule.id }}" onclick="return confirm('Are you sure you want to delete this schedule?');">Delete</button>
+                </td>
+            </form>
         </tr>
         {% endfor %}
     </tbody>

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .forms import ContentScheduleForm
+from .forms import ContentScheduleForm, ContentScheduleUpdateForm
 from .models import ContentSchedule
 from django.contrib.auth.decorators import login_required
 
@@ -12,7 +12,13 @@ def user_dashboard(request):
             schedule = get_object_or_404(ContentSchedule, id=schedule_id, user=request.user)
             schedule.delete()
             messages.success(request, 'Content schedule deleted successfully.')
-            return redirect('user_dashboard')
+        elif 'update' in request.POST:
+            schedule_id = request.POST.get('update')
+            schedule = get_object_or_404(ContentSchedule, id=schedule_id, user=request.user)
+            form = ContentScheduleForm(request.POST, instance=schedule)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Content schedule updated successfully.')
         else:
             form = ContentScheduleForm(request.POST)
             if form.is_valid():
@@ -20,7 +26,7 @@ def user_dashboard(request):
                 content_schedule.user = request.user
                 content_schedule.save()
                 messages.success(request, 'New content schedule added successfully.')
-                return redirect('user_dashboard')
+        return redirect('user_dashboard')
     else:
         form = ContentScheduleForm()
 

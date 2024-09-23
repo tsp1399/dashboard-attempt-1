@@ -107,3 +107,26 @@ tr:nth-child(even) {
 button[name="delete"] {
     /* Add your styles here */
 }
+
+.editable-text:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+.edit-input {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 2px 5px;
+}
+
+.edit-btn, .update-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.update-btn {
+    background-color: #008CBA;
+}
