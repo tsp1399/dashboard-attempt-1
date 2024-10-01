@@ -1,0 +1,5 @@
+from django.conf import settings
+
+DATAFORSEO_LOGIN = settings.DATAFORSEO_LOGIN
+DATAFORSEO_PASSWORD = settings.DATAFORSEO_PASSWORD
+SERPAPI_KEY = settings.SERPAPI_KEY
