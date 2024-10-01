@@ -1,0 +1,10 @@
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 64291
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 2974
+No keyword difficulty data found for keyword: cow
+Keyword data received for 'cow': {'search_volume': None, 'keyword_difficulty': None, 'cpc': None, 'competition': None, 'monthly_searches': None}
+"POST / HTTP/1.1" 302 0
+"GET / HTTP/1.1" 200 65834
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 2974
